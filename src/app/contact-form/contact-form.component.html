@@ -1,0 +1,40 @@
+<form #f="ngForm">
+  <div ngModelGroup="contact" #contact="ngModelGroup">
+      <div class="form-group">
+          <label for="firstName">
+              First name
+            </label>
+            <input required ngModel minlength="3" maxlength="10"  name="firstName" #firstName="ngModel" (change)="log(firstName)" type="text" class="form-control">
+            <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
+              <div *ngIf="firstName.errors.required">First Name is required</div>
+              <div *ngIf="firstName.errors.minlength">First Name is required minimum {{firstName.errors.minlength.requiredLength}} characters</div>
+            </div>
+          </div>
+      <div class="form-group">
+        <label for="comment">
+          Comment
+        </label>
+        <input cols="30" rows="40" class="form-control" id="comment">
+      </div>
+      
+      <div class="checkbox">
+          <label for=""></label>
+          <input type="checkbox" ngModel name="isSubscribed">
+      </div>
+
+      <div class="form-group">
+        <label for=""></label>
+        <select ngModel name="contactMethod" name="contactMethod" id="contactMethod">
+            <option *ngFor="let method of contactMethods"  [value]="method.id" >{{method.name}}</option>
+        </select>
+      </div>
+      <div class="radio">
+        <label for=""></label>
+        <input ngModel type="radio" name="contactType" value="1">
+      </div>
+    </div>
+      <p>
+        {{ f.value | json }}
+      </p>
+  <button class="btn btn-primary" [disabled]="!f.valid">Save</button>
+</form>
